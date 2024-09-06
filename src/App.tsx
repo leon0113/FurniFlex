@@ -6,6 +6,8 @@ import SignIn from './pages/SignIn'
 import Products from './pages/Products'
 import Cart from './pages/Cart'
 import SignUp from './pages/Signup'
+import { AuthProvider } from './context/userContext'
+import { ProductProvider } from './context/productContext'
 
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -21,33 +23,37 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 function App() {
 
   return (
-    <BrowserRouter>
-      {/* Routes without Navbar and Footer (like SignUp and SignIn) */}
-      <Routes>
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
-      </Routes>
+    <AuthProvider>
+      <ProductProvider>
+        <BrowserRouter>
+          {/* Routes without Navbar and Footer (like SignUp and SignIn) */}
+          <Routes>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+          </Routes>
 
-      {/* Routes with Navbar and Footer */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainLayout>
-              <Products />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <MainLayout>
-              <Cart />
-            </MainLayout>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+          {/* Routes with Navbar and Footer */}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainLayout>
+                  <Products />
+                </MainLayout>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <MainLayout>
+                  <Cart />
+                </MainLayout>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </ProductProvider>
+    </AuthProvider>
   )
 }
 

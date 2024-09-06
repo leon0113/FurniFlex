@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/userContext';
 import Banner from '../components/Banner';
 import BrandName from '../components/BrandName';
 
@@ -10,8 +12,10 @@ const SignUp = () => {
         password: '',
         agree: false,
     });
-
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [error, setError] = useState("");
+    const { signup, loginWithGoogle } = useAuth(); // Use signup and loginWithGoogle from AuthContext
+    const navigate = useNavigate();
 
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
@@ -21,13 +25,30 @@ const SignUp = () => {
         });
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        console.log(formData);
+        setError(""); // Clear any previous errors
+
+        try {
+            await signup(formData.email, formData.password);
+            navigate("/");
+        } catch (err: any) {
+            setError(err.message); // Set error message from Firebase
+        }
     };
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
+    };
+
+    // Handle Google Sign-In
+    const handleGoogleSignIn = async () => {
+        try {
+            await loginWithGoogle();
+            navigate("/"); // Redirect after successful Google login
+        } catch (err: any) {
+            setError(err.message);
+        }
     };
 
     return (
@@ -39,6 +60,8 @@ const SignUp = () => {
                     </h2>
                     <BrandName className='text-gray-900 text-center' />
                     <p className="text-center text-gray-500 mb-6">Signup to purchase your desired products</p>
+
+                    {error && <div className="text-red-500 mb-4">{error}</div>}
 
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
@@ -122,7 +145,10 @@ const SignUp = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-2 mb-6">
-                        <button className="flex text-sm font-semibold items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
+                        <button
+                            className="flex text-sm font-semibold items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+                            onClick={handleGoogleSignIn}
+                        >
                             <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" className="mr-1" />
                             Sign in with Google
                         </button>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { CartItem } from '../components/CartItem';
 import { OrderSummary } from '../components/OrderSummary';
+import { useAuth } from '../context/userContext';
 
 const Cart = () => {
     const items = [
@@ -17,6 +18,8 @@ const Cart = () => {
         tax: "-",
         total: 1071
     };
+    const { currentUser } = useAuth();
+    // console.log(currentUser);
 
     return (
         <div className="container mx-auto p-6 flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-20">
