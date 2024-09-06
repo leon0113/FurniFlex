@@ -4,14 +4,12 @@ import BrandName from '../components/BrandName';
 
 const SignIn = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
         agree: false,
     });
 
-    const [passwordVisible, setPasswordVisible] = useState(false); // New state to manage password visibility
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
@@ -28,23 +26,19 @@ const SignIn = () => {
     };
 
     const togglePasswordVisibility = () => {
-        setPasswordVisible(!passwordVisible); // Toggle password visibility
+        setPasswordVisible(!passwordVisible);
     };
 
     return (
-        <div className='flex justify-center items-center h-screen'>
-            <div className="flex w-1/2 justify-center items-center h-screen bg-gray-100">
-                <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+        <div className="flex flex-col md:flex-row justify-center items-center h-screen">
+            <div className="flex w-full md:w-1/2 justify-center items-center h-full bg-gray-100">
+                <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md mx-4 sm:mx-auto md:mx-0">
                     <h2 className="text-4xl font-bold text-gray-800 mb-1">
                         Welcome Back!
                     </h2>
-                    <p className=" text-gray-500 mb-6">Enter your Credentials to access your account</p>
+                    <p className="text-gray-500 mb-6">Enter your credentials to access your account</p>
 
                     <form onSubmit={handleSubmit}>
-
-
-
-
                         <div className="mb-4">
                             <input
                                 type="email"
@@ -59,7 +53,7 @@ const SignIn = () => {
 
                         <div className="mb-0 relative">
                             <input
-                                type={passwordVisible ? 'text' : 'password'} // Toggle input type based on visibility state
+                                type={passwordVisible ? 'text' : 'password'}
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
@@ -75,8 +69,9 @@ const SignIn = () => {
                                 {passwordVisible ? '🙈' : '👁'} {/* Toggle icon */}
                             </button>
                         </div>
-                        <a href='#' className='mb-4 text-blue-500  flex justify-end  text-left'>Forget Password</a>
-
+                        <a href="#" className="mb-4 text-blue-500 flex justify-end">
+                            Forget Password?
+                        </a>
 
                         <div className="mb-4">
                             <label className="flex items-center text-gray-600">
@@ -88,7 +83,7 @@ const SignIn = () => {
                                     className="mr-2"
                                     required
                                 />
-                                <p> I agree to the <a href='#' className="underline underline-offset-2"> Terms & Policy</a></p>
+                                <p>I agree to the <a href="#" className="underline underline-offset-2">Terms & Policy</a></p>
                             </label>
                         </div>
 
@@ -106,7 +101,7 @@ const SignIn = () => {
                         <div className="flex-grow border-t border-gray-300"></div>
                     </div>
 
-                    <div className="flex justify-center space-x-2 mb-6">
+                    <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-2 mb-6">
                         <button className="flex text-sm font-semibold items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
                             <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" className="mr-1" />
                             Sign in with Google
@@ -122,7 +117,7 @@ const SignIn = () => {
                     </div>
                 </div>
             </div>
-            <Banner />
+            <Banner className="hidden md:block w-full md:w-1/2 h-full" />
         </div>
     );
 };

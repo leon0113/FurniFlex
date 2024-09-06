@@ -7,20 +7,46 @@ import Products from './pages/Products'
 import Cart from './pages/Cart'
 import SignUp from './pages/Signup'
 
+
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div>
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+
 function App() {
 
   return (
     <BrowserRouter>
+      {/* Routes without Navbar and Footer (like SignUp and SignIn) */}
       <Routes>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/signin" element={<SignIn />}></Route>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
-      <Navbar />
+
+      {/* Routes with Navbar and Footer */}
       <Routes>
-        <Route path="/" element={<Products />}></Route>
-        <Route path="/cart" element={<Cart></Cart>}></Route>
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Products />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <MainLayout>
+              <Cart />
+            </MainLayout>
+          }
+        />
       </Routes>
-      <Footer />
     </BrowserRouter>
   )
 }

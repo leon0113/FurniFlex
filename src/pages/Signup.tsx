@@ -11,7 +11,7 @@ const SignUp = () => {
         agree: false,
     });
 
-    const [passwordVisible, setPasswordVisible] = useState(false); // New state to manage password visibility
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
@@ -23,34 +23,33 @@ const SignUp = () => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        // Handle form submission logic here
         console.log(formData);
     };
 
     const togglePasswordVisibility = () => {
-        setPasswordVisible(!passwordVisible); // Toggle password visibility
+        setPasswordVisible(!passwordVisible);
     };
 
     return (
-        <div className='flex justify-center items-center h-screen'>
-            <div className="flex w-1/2 justify-center items-center h-screen bg-gray-100">
-                <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+        <div className='flex flex-col md:flex-row justify-center items-center h-screen'>
+            <div className="flex w-full md:w-1/2 justify-center items-center h-full bg-gray-100">
+                <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md mx-4 sm:mx-auto md:mx-0">
                     <h2 className="text-2xl font-bold text-center text-gray-800 mb-1">
                         Welcome To
                     </h2>
                     <BrandName className='text-gray-900 text-center' />
-                    <p className="text-center text-gray-500 mb-6">Signup for purchase your desired products</p>
+                    <p className="text-center text-gray-500 mb-6">Signup to purchase your desired products</p>
 
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
-                            <div className='flex gap-2'>
+                            <div className='flex flex-col sm:flex-row gap-2'>
                                 <input
                                     type="text"
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleChange}
                                     placeholder="First name (optional)"
-                                    className="w-1/2 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                                    className="w-full sm:w-1/2 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                                 />
                                 <input
                                     type="text"
@@ -58,12 +57,10 @@ const SignUp = () => {
                                     value={formData.lastName}
                                     onChange={handleChange}
                                     placeholder="Last name (optional)"
-                                    className="w-1/2 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                                    className="w-full sm:w-1/2 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                                 />
                             </div>
                         </div>
-
-
 
                         <div className="mb-4">
                             <input
@@ -79,7 +76,7 @@ const SignUp = () => {
 
                         <div className="mb-4 relative">
                             <input
-                                type={passwordVisible ? 'text' : 'password'} // Toggle input type based on visibility state
+                                type={passwordVisible ? 'text' : 'password'}
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
@@ -92,7 +89,7 @@ const SignUp = () => {
                                 className="absolute inset-y-0 right-0 px-4 py-2 text-gray-500"
                                 onClick={togglePasswordVisibility}
                             >
-                                {passwordVisible ? '🙈' : '👁'} {/* Toggle icon */}
+                                {passwordVisible ? '🙈' : '👁'}
                             </button>
                         </div>
 
@@ -124,7 +121,7 @@ const SignUp = () => {
                         <div className="flex-grow border-t border-gray-300"></div>
                     </div>
 
-                    <div className="flex justify-center space-x-2 mb-6">
+                    <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-2 mb-6">
                         <button className="flex text-sm font-semibold items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
                             <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" className="mr-1" />
                             Sign in with Google
@@ -140,7 +137,7 @@ const SignUp = () => {
                     </div>
                 </div>
             </div>
-            <Banner />
+            <Banner className="hidden md:block w-full md:w-1/2 h-full" />
         </div>
     );
 };

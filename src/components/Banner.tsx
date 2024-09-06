@@ -1,8 +1,8 @@
 import BrandName from "./BrandName";
 
-export default function Banner() {
+export default function Banner({ className = '' }: { className: string }) {
     return (
-        <div className='w-1/2 h-screen bg-[url("/auth-pic.png")] bg-cover bg-left '>
+        <div className={`w-1/2 h-screen bg-[url("/auth-pic.png")] bg-cover bg-left ${className}`}>
             <div className='w- full h-full flex flex-col justify-center items-center text-center gap-2'>
                 {/* logo */}
                 <div className='w-20 h-20'>
