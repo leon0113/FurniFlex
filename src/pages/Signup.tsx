@@ -31,7 +31,7 @@ const SignUp = () => {
 
         try {
             await signup(formData.email, formData.password);
-            navigate("/");
+            navigate("/home");
         } catch (err: any) {
             setError(err.message); // Set error message from Firebase
         }
@@ -158,8 +158,8 @@ const SignUp = () => {
                         </button>
                     </div>
 
-                    <div className="text-center font-semibold">
-                        <p>Have an account? <a href="/signin" className="text-blue-500">Sign In</a></p>
+                    <div className="text-center flex font-semibold">
+                        <p>Have an account? <div onClick={() => navigate('/signin')} className="text-blue-500 cursor-pointer">Sign In</div></p>
                     </div>
                 </div>
             </div>

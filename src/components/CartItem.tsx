@@ -1,6 +1,6 @@
 import { RxCross1 } from "react-icons/rx";
 
-export const CartItem = ({ item, updateQuantity, removeFromCart, subtotal }) => {
+export const CartItem = ({ item, updateQuantity, removeFromCart }: any) => {
     const handleIncrease = () => {
         updateQuantity(item.id, item.quantity + 1);
     };

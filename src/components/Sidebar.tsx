@@ -1,4 +1,4 @@
-export default function Sidebar({ handleCategoryChange, activeCategory, selectedCategory }: any) {
+export default function Sidebar({ handleCategoryChange, activeCategory }: any) {
     const categories = ["Rocking chair", "Side chair", "Lounge chair"];
     return (
         <div className="flex flex-col h-auto p-3 w-full md:w-[250px] lg:w-[300px] border-r dark:text-gray-800">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Banner from '../components/Banner';
-import BrandName from '../components/BrandName';
+import { useAuth } from '../context/userContext';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
     const [formData, setFormData] = useState({
@@ -8,8 +9,11 @@ const SignIn = () => {
         password: '',
         agree: false,
     });
-
+    const { login } = useAuth();
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [error, setError] = useState("");
+    const { loginWithGoogle } = useAuth(); // Use signup and loginWithGoogle from AuthContext
+    const navigate = useNavigate();
 
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
@@ -19,14 +23,24 @@ const SignIn = () => {
         });
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
+        await login(formData.email, formData.password)
         // Handle form submission logic here
-        console.log(formData);
+        console.log(error);
     };
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await loginWithGoogle();
+            navigate("/home"); // Redirect after successful Google login
+        } catch (err: any) {
+            setError(err.message);
+        }
     };
 
     return (
@@ -102,7 +116,7 @@ const SignIn = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-2 mb-6">
-                        <button className="flex text-sm font-semibold items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
+                        <button onClick={() => handleGoogleSignIn} className="flex text-sm font-semibold items-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">
                             <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google" className="mr-1" />
                             Sign in with Google
                         </button>
@@ -113,7 +127,7 @@ const SignIn = () => {
                     </div>
 
                     <div className="text-center font-semibold">
-                        <p>Don't have an account? <a href="/signup" className="text-blue-500">Sign Up</a></p>
+                        <p>Don't have an account? <a href="/" className="text-blue-500">Sign Up</a></p>
                     </div>
                 </div>
             </div>

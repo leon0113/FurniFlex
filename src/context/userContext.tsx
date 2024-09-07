@@ -34,6 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
             setLoading(false);
+            console.log(loading);
         });
 
         return unsubscribe;

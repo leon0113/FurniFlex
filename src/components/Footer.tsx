@@ -1,4 +1,3 @@
-import React from 'react';
 import Li from './Li';
 import { FiFacebook } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";

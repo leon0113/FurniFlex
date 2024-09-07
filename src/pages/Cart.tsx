@@ -1,17 +1,13 @@
-import React, { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { CartItem } from '../components/CartItem';
 import { OrderSummary } from '../components/OrderSummary';
 import { CartContext } from '../context/cartContext';
 
 const Cart = () => {
-    const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
-    const { itemTotal, setItemTotal } = useState(0);
+    const { cart, removeFromCart, updateQuantity }: any = useContext(CartContext);
 
-    const handleItemTotal = () => {
 
-    }
-
-    const subtotal = cart.reduce((acc, item) => {
+    const subtotal = cart.reduce((acc: any, item: any) => {
         // Remove the '€' symbol and convert the price string to a number
         const priceNumber = parseFloat(item.discountedPrice.replace('€', ''));
         return acc + priceNumber * item.quantity;
@@ -31,7 +27,7 @@ const Cart = () => {
         <div className="container mx-auto p-6 flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-20">
             <div className="flex-1">
                 <h1 className='font-bold text-2xl mb-8'>An overview of your order</h1>
-                {cart.map((item) => (
+                {cart.map((item: any) => (
                     <CartItem
                         key={item.id}
                         item={item}

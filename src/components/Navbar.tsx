@@ -3,11 +3,11 @@ import { IoBagOutline } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { HiMenuAlt3, HiX } from "react-icons/hi"; // Icons for hamburger menu
 import { CartContext } from "../context/cartContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State for controlling the mobile menu
-    const { cart } = useContext(CartContext);
+    const { cart }: any = useContext(CartContext);
     const navigate = useNavigate()
 
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import ProductCard from '../components/ProductCard';
 // import { useAuth } from '../context/userContext';
@@ -7,7 +7,7 @@ import Pagination from '../components/Pagination';
 import { useAuth } from '../context/userContext';
 
 export default function Products() {
-    const { products, loading, error } = useProducts();
+    const { products } = useProducts();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCategory, setSelectedCategory] = useState("Rocking chair");
     const [activeCategory, setActiveCategory] = useState("Rocking chair");

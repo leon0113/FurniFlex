@@ -1,7 +1,7 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 
-export const CartContext = createContext({
+export const CartContext = createContext<any>({
     id: "",
     title: "",
     originalPrice: "€",
@@ -45,16 +45,16 @@ export const CartProvider = ({ children }: any) => {
     };
 
 
-    const updateQuantity = (id, quantity) => {
-        setCart((prevCart) =>
-            prevCart.map((item) =>
+    const updateQuantity = (id: any, quantity: number) => {
+        setCart((prevCart: any) =>
+            prevCart.map((item: any) =>
                 item.id === id ? { ...item, quantity } : item
             )
         );
     };
 
-    const removeFromCart = (id) => {
-        setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+    const removeFromCart = (id: number) => {
+        setCart((prevCart) => prevCart.filter((item: any) => item.id !== id));
     };
 
     const clearCart = () => {

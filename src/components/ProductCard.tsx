@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     imageUrl
 }) => {
 
-    const { addToCart } = useContext(CartContext);
+    const { addToCart }: any = useContext(CartContext);
 
     return (
         <div className="bg-white border border-gray-300 rounded-lg p-4 shadow-lg max-w-xs">

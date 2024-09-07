@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+
 import { useAuth } from '../context/userContext'; // Assuming you have an auth context
 
 export default function Profile() {

@@ -12,7 +12,7 @@ export default function Banner({ className = '' }: { className: string }) {
                 <BrandName className="text-white" />
                 {/* text  */}
                 <p className='text-gray-400 px-20'>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit non omnis dolores asperiores animi id natus dicta iure distinctio molestiae! Lorem ipsum dolor,
+                    Discover a seamless shopping experience with our curated collection of products. From fashion to electronics, we bring quality.
                 </p>
             </div>
         </div>
