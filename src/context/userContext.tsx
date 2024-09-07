@@ -3,7 +3,7 @@ import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-// Define the context
+
 const AuthContext = createContext<any>(
     {
         firstName: '',
@@ -23,13 +23,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const provider = new GoogleAuthProvider();
 
-    // Sign in user with Google
+
     async function loginWithGoogle() {
         return signInWithPopup(auth, provider);
     }
 
 
-    // Monitor authentication state and update accordingly
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
@@ -39,18 +39,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return unsubscribe;
     }, []);
 
-    // Sign up user with email and password
+
     async function signup(email: string, password: string) {
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
-    // Sign in user with email and password
+
     async function login(email: string, password: string) {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    // Logout the user
+
     function logout() {
+
         return signOut(auth);
     }
 

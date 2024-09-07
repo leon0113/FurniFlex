@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from '../context/cartContext';
 
 interface ProductCardProps {
+    id: number,
     title: string;
     originalPrice: string;
     discountedPrice: string;
@@ -10,6 +12,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+    id,
     title,
     originalPrice,
     discountedPrice,
@@ -17,6 +20,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
     description,
     imageUrl
 }) => {
+
+    const { addToCart } = useContext(CartContext);
+
     return (
         <div className="bg-white border border-gray-300 rounded-lg p-4 shadow-lg max-w-xs">
             {/* Product Image */}
@@ -38,7 +44,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <p className="text-sm text-gray-600 mt-2">{description}</p>
 
             {/* Add to Cart Button */}
-            <button className="flex items-center justify-center w-full mt-4 py-2 bg-black text-white rounded-lg">
+            <button onClick={() => addToCart({
+                id,
+                title,
+                originalPrice,
+                discountedPrice,
+                discount,
+                description,
+                imageUrl
+            })} className="flex items-center justify-center w-full mt-4 py-2 bg-black text-white rounded-lg">
 
                 Add to cart
             </button>

@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { CartContext } from "../context/cartContext";
+
 export const OrderSummary = ({ summary }) => {
+    const { clearCart } = useContext(CartContext)
     return (
         <div>
             <div className="p-4 bg-gray-100 border text-gray-500 font-medium  rounded-lg">
@@ -19,7 +23,7 @@ export const OrderSummary = ({ summary }) => {
                     <span className="text-gray-900">{`€ ${summary.total}`}</span>
                 </div>
             </div>
-            <button className="w-full bg-black text-white p-3 rounded-lg mt-4">
+            <button onClick={() => clearCart()} className="w-full bg-black text-white p-3 rounded-lg mt-4">
                 GO TO CHECKOUT
             </button>
         </div>

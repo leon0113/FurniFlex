@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Create a context for products
+
 const ProductContext = createContext<any>({
     "title": "Blank Bamboo Wicker",
     "originalPrice": "€350.00",
@@ -15,17 +15,17 @@ export function useProducts() {
     return useContext(ProductContext);
 }
 
-// Product Provider component to wrap the app
+
 export function ProductProvider({ children }: { children: React.ReactNode }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    // Fetch product data from the API
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://localhost:3000/');
+                const response = await fetch('https://furniflex-backend.vercel.app/chairs');
                 if (!response.ok) {
                     throw new Error('Failed to fetch product data');
                 }

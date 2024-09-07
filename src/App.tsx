@@ -8,6 +8,9 @@ import Cart from './pages/Cart'
 import SignUp from './pages/Signup'
 import { AuthProvider } from './context/userContext'
 import { ProductProvider } from './context/productContext'
+import { CartProvider } from './context/cartContext'
+import Profile from './pages/Profile'
+import PrivateRoute from './components/PrivateRoute'
 
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -25,35 +28,53 @@ function App() {
   return (
     <AuthProvider>
       <ProductProvider>
-        <BrowserRouter>
-          {/* Routes without Navbar and Footer (like SignUp and SignIn) */}
-          <Routes>
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-          </Routes>
+        <CartProvider>
+          <BrowserRouter>
 
-          {/* Routes with Navbar and Footer */}
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <MainLayout>
-                  <Products />
-                </MainLayout>
-              }
-            />
-            <Route
-              path="/cart"
-              element={
-                <MainLayout>
-                  <Cart />
-                </MainLayout>
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+            <Routes>
+              <Route path="/" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+            </Routes>
+
+
+            <Routes>
+
+              <Route
+                path="/home"
+                element={
+                  <PrivateRoute>
+                    <MainLayout>
+                      <Products />
+                    </MainLayout>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <PrivateRoute>
+                    <MainLayout>
+                      <Cart />
+                    </MainLayout>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <MainLayout>
+                      <Profile />
+                    </MainLayout>
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
       </ProductProvider>
     </AuthProvider>
+
   )
 }
 

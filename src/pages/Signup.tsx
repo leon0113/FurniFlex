@@ -45,7 +45,7 @@ const SignUp = () => {
     const handleGoogleSignIn = async () => {
         try {
             await loginWithGoogle();
-            navigate("/"); // Redirect after successful Google login
+            navigate("/home"); // Redirect after successful Google login
         } catch (err: any) {
             setError(err.message);
         }
@@ -159,7 +159,7 @@ const SignUp = () => {
                     </div>
 
                     <div className="text-center font-semibold">
-                        <p>Have an account? <a href="#" className="text-blue-500">Sign In</a></p>
+                        <p>Have an account? <a href="/signin" className="text-blue-500">Sign In</a></p>
                     </div>
                 </div>
             </div>

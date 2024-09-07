@@ -1,31 +1,45 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { CartItem } from '../components/CartItem';
 import { OrderSummary } from '../components/OrderSummary';
-import { useAuth } from '../context/userContext';
+import { CartContext } from '../context/cartContext';
 
 const Cart = () => {
-    const items = [
-        // Example items data
-        { id: 1, name: "Recliner Chair Steel", price: 299, quantity: 1, imageUrl: 'https://images.unsplash.com/photo-1612372606404-0ab33e7187ee?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-        { id: 2, name: "Recliner Chair Steel", price: 299, quantity: 1, imageUrl: 'https://images.unsplash.com/photo-1612372606404-0ab33e7187ee?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-        { id: 3, name: "Recliner Chair Steel", price: 299, quantity: 1, imageUrl: 'https://images.unsplash.com/photo-1612372606404-0ab33e7187ee?q=80&w=1956&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-        // Add other items similarly
-    ];
+    const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
+    const { itemTotal, setItemTotal } = useState(0);
+
+    const handleItemTotal = () => {
+
+    }
+
+    const subtotal = cart.reduce((acc, item) => {
+        // Remove the '€' symbol and convert the price string to a number
+        const priceNumber = parseFloat(item.discountedPrice.replace('€', ''));
+        return acc + priceNumber * item.quantity;
+    }, 0);
+    const shipping = subtotal > 100 ? 'Free' : '€10.00';
+    const tax = (subtotal * 0.05).toFixed(2);
+    const total = shipping === 'Free' ? subtotal + parseFloat(tax) : subtotal + parseFloat(tax) + 10;
 
     const summary = {
-        subtotal: 1071,
-        shipping: "Free",
-        tax: "-",
-        total: 1071
+        subtotal: subtotal.toFixed(2),
+        shipping: shipping,
+        tax: tax,
+        total: total.toFixed(2)
     };
-    const { currentUser } = useAuth();
-    // console.log(currentUser);
 
     return (
         <div className="container mx-auto p-6 flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-20">
             <div className="flex-1">
                 <h1 className='font-bold text-2xl mb-8'>An overview of your order</h1>
-                {items.map(item => <CartItem key={item.id} item={item} />)}
+                {cart.map((item) => (
+                    <CartItem
+                        key={item.id}
+                        item={item}
+                        updateQuantity={updateQuantity}
+                        removeFromCart={removeFromCart}
+                        subtotal={subtotal}
+                    />
+                ))}
             </div>
             <div className="w-full md:w-1/4">
                 <h1 className='font-bold text-2xl mb-8'>Order details</h1>

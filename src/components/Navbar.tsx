@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoBagOutline } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { HiMenuAlt3, HiX } from "react-icons/hi"; // Icons for hamburger menu
+import { CartContext } from "../context/cartContext";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State for controlling the mobile menu
+    const { cart } = useContext(CartContext);
+    const navigate = useNavigate()
 
     return (
         <header className="p-4 w-full border-b dark:text-gray-800">
@@ -19,7 +23,7 @@ export default function Navbar() {
 
                 {/* Main Navigation */}
                 <ul className={`items-center flex-shrink-0 hidden lg:flex`}>
-                    <li><a href="#" className="self-center px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">Home</a></li>
+                    <li><a href="/" className="self-center px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">Home</a></li>
                     <li><a href="#" className="self-center px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">Products</a></li>
                     <li><a href="#" className="self-center px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">Categories</a></li>
                     <li><a href="#" className="self-center px-4 py-2 rounded-lg font-semibold hover:bg-gray-200">Custom</a></li>
@@ -28,18 +32,18 @@ export default function Navbar() {
 
                 {/* Cart and Profile Section */}
                 <div className="items-center flex-shrink-0 hidden lg:flex">
-                    <div className="relative">
+                    <div onClick={() => navigate('/cart')} className="relative">
                         <button className="px-4 py-0 rounded">
                             <IoBagOutline className="w-8 h-8" />
                         </button>
                         {/* Badge for the number of items */}
                         <span className="absolute -bottom-0 left-3/4 transform -translate-x-3/4 bg-red-600 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full">
-                            3
+                            {cart.length}
                         </span>
                     </div>
-                    <a href="#" className="px-4 py-0 font-semibold rounded">
-                        <RxAvatar className="w-6 h-6" />
-                    </a>
+                    <div onClick={() => navigate('/profile')} className="px-4 py-0 font-semibold rounded">
+                        <RxAvatar className="w-8 h-8" />
+                    </div>
                 </div>
 
                 {/* Hamburger Menu for Mobile */}
